@@ -17,4 +17,12 @@ class ProjetController extends AbstractController
             'controller_name' => 'ProjetController',
         ]);
     }
+	
+	/**
+     * @Route("inscription", name="inscription")
+     */
+    public function inscription() : Response
+    {
+        return $this->render('projet/inscription.html.twig');
+    }
 }
