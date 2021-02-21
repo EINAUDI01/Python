@@ -25,4 +25,12 @@ class ProjetController extends AbstractController
     {
         return $this->render('projet/inscription.html.twig');
     }
+	
+	/**
+     * @Route("CreationUtilisateur", name="CreationUtilisateur")
+     */
+    public function creer_utilisateur() : Response
+    {
+        return $this->render('projet/creer-utilisateur.html.twig');
+    }
 }

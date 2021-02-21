@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ACCUEIL{% endblock %}
+
+{% block body %}
+
+<!DOCTYPE html>
+	<html>
+			<head>
+				<meta charset="UTF-8" />
+				
+				<!-- BOOSTSTRAP CSS -->
+				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+				<!-- CODE CSS -->
+				<style>
+					
+					body
+					{
+						background-color: rgb(27,30,39);
+						opacity: 1000px;
+					}
+					
+					h1
+					{
+						color: rgb(27,30,39);
+						font-size: 20px;
+						font-weight: bold;
+						font-family: "Comic sans ms", sans-serif;
+					}
+					
+					nav
+					{
+						
+						background-color: white;
+						font-weight: bold;
+					}
+					
+					.SectionPied
+					{
+						width: 1000px;
+						margin: auto;
+						text-align: center;
+						opacity: 100px;
+						background-color: rgb(27,30,39);
+						color: rgb(196,196,196);
+						font-weight: bold;
+					}
+					
+					::placeholder
+					{
+						font-style: italic;
+					}
+					
+					fieldset
+					{
+						border-style: solid;
+						border-radius: 20px;
+						border-color: black;
+						background-color: white;
+						width: 250px;
+						margin: auto;
+						height: 150px;
+						padding: 20px;
+						text-align: left;
+						color: rgb(27,30,39);
+						font-weight: bold;
+					}
+				</style>
+			</head>
+			<body>
+			
+				<!--<header>
+					<p>
+						<img src="logo.jpg" alt="logo du projet" />
+					</p>
+				</header>-->
+				
+				<nav class="navbar justify-content-center navbar-expand">
+					<h1>CREER UN UTILISATEUR</h1>					
+				</nav>
+				
+				<section class="SectionPied">
+					<form class="formulaire">
+						<!--Pour chaque ligne du formulaire, il nous fait une div avec une class form-group-->
+						<!--Pour chaque entrée du formulaire, j'ai rajouté la class cl-sm-6 pour pourvoir les centrés tout en mettant après chaque form-group le row qui indique que c'est pour la ligne-->
+						<div class=”form-group” row>
+							<label for=”Email1”>IDENTIFIANT</label>
+							<!--On met required pour les entrées à remplir obligatoirement, ainsi si l'utilisateur à oublier d'indiquer certaines données obligatoires la page ne sera pas validée-->
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="Email" placeholder="Email" required>
+							</div>
+						</div>
+						<br/>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for=”Nom”>| NOM | </label>
+								<!--On met required pour les entrées à remplir obligatoirement, ainsi si l'utilisateur à oublier d'indiquer certaines données obligatoires la page ne sera pas validée-->
+								<input type="text" class="form-control" id="Nom" placeholder="Ton Nom" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for=”Prenom”>| PRENOM |</label>
+								<!--On met required pour les entrées à remplir obligatoirement, ainsi si l'utilisateur à oublier d'indiquer certaines données obligatoires la page ne sera pas validée-->
+								<input type="text" class="form-control" id="Prenom" placeholder="Ton Prénom" required>
+							</div>
+						</div>
+						<br/>
+						<div class="form-row" >
+							<div class="form-group col-md-6">
+								<label for=”Secret1”> | MOT DE PASSE |</label>
+								<input type="password" class="form-control" id="Password" placeholder="Password" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for=”SecretConfirm1”>| CONFIRMER VOTRE MOT DE PASSE |</label>
+								<input type="password" class="form-control" id="PasswordConfirm" placeholder="Password" required>
+							</div>
+						</div>
+						
+						<fieldset class="form-group">
+							<div class="row">
+								<div class="col-sm-10">
+									<div class="form-check" disabled>
+										<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+										<label class="form-check-label" for="gridRadios1">
+										Utilisateur
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+										<label class="form-check-label" for="gridRadios2">
+										Chef de groupe
+										</label>
+									</div>
+									<div class="form-check disabled">
+										<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" >
+										<label class="form-check-label" for="gridRadios3">
+										Administrateur
+										</label>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						
+						<br/>
+						
+						<div class=”form-group” row>
+							<div class="btn-group" role="group" aria-label="Basic example">
+								<div class="col-sm-6">
+									<button type="button" class="btn btn-secondary">Valider</button>
+								</div>
+								<div class="col-sm-8">
+									<button type="submit" class="btn btn-secondary">Paramètres avancés</button>
+								</div>
+							</div>
+						</div>
+						<br/>
+					</form>
+				</section>
+				<br/>
+				<footer class="SectionPied">
+					<div class="row">
+						<div class="col">
+							A propos
+						</div>
+						<div class="col">
+							Vie privée
+						</div>
+						<div class="col">
+							Conditions d'utilisation
+						</div>
+					</div>
+				</footer>
+			</body>
+	</html>
+{% endblock %}
