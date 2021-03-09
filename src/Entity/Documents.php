@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UtilisateurRepository;
+use App\Repository\DocumentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ * @ORM\Entity(repositoryClass=DocumentsRepository::class)
  */
-class Utilisateur
+class Documents
 {
     /**
      * @ORM\Id
@@ -22,25 +22,20 @@ class Utilisateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $Chemin;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date")
      */
-    private $Prenom;
+    private $Date;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
      */
-    private $MotDePasse;
+    private $Actif;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Email;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Acces::class, mappedBy="UtilisateurId")
+     * @ORM\OneToMany(targetEntity=Acces::class, mappedBy="DocumentId")
      */
     private $acces;
 
@@ -54,50 +49,38 @@ class Utilisateur
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getChemin(): ?string
     {
-        return $this->Nom;
+        return $this->Chemin;
     }
 
-    public function setNom(string $Nom): self
+    public function setChemin(string $Chemin): self
     {
-        $this->Nom = $Nom;
+        $this->Chemin = $Chemin;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->Prenom;
+        return $this->Date;
     }
 
-    public function setPrenom(string $Prenom): self
+    public function setDate(\DateTimeInterface $Date): self
     {
-        $this->Prenom = $Prenom;
+        $this->Date = $Date;
 
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getActif(): ?bool
     {
-        return $this->MotDePasse;
+        return $this->Actif;
     }
 
-    public function setMotDePasse(string $MotDePasse): self
+    public function setActif(bool $Actif): self
     {
-        $this->MotDePasse = $MotDePasse;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->Email;
-    }
-
-    public function setEmail(string $Email): self
-    {
-        $this->Email = $Email;
+        $this->Actif = $Actif;
 
         return $this;
     }
@@ -114,7 +97,7 @@ class Utilisateur
     {
         if (!$this->acces->contains($acce)) {
             $this->acces[] = $acce;
-            $acce->setUtilisateurId($this);
+            $acce->setDocumentId($this);
         }
 
         return $this;
@@ -124,8 +107,8 @@ class Utilisateur
     {
         if ($this->acces->removeElement($acce)) {
             // set the owning side to null (unless already changed)
-            if ($acce->getUtilisateurId() === $this) {
-                $acce->setUtilisateurId(null);
+            if ($acce->getDocumentId() === $this) {
+                $acce->setDocumentId(null);
             }
         }
 
