@@ -71,28 +71,35 @@
 				<section>
 					<br/>
 					<img src="logo.jpg" alt="logo" />
-					<form class="formulaire">
+					<form class="formulaire" action="/login" method="POST" enctype="multipart/form-data">
 						<!--Pour chaque ligne du formulaire, il nous fait une div avec une class form-group-->
 						<!--Pour chaque entrée du formulaire, j'ai rajouté la class cl-sm-6 pour pourvoir les centrés tout en mettant après chaque form-group le row qui indique que c'est pour la ligne-->
 						<div class=”form-group” row>
 							<label for=”Email”>IDENTIFIANT</label>
 							<!--On met required pour les entrées à remplir obligatoirement, ainsi si l'utilisateur à oublier d'indiquer certaines données obligatoires la page ne sera pas validée-->
 							<div class="col-sm-12">
-								<input type="text" class="form-control" id="Email" placeholder="Email" required>
+								<input type="text" class="form-control" id="Email" name="email" placeholder="Email">
+							</div>
+						</div>
+						<br/>
+						<div class=”form-group” >
+							<label for=”Secret”>NOM</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="nom" name="nom"  placeholder="Ton Nom" required>
+							</div>
+						</div>
+						<br/>
+						<div class=”form-group” >
+							<label for=”Secret”>PRENOM</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="prenom" name="prenom" placeholder="Ton Prenom">
 							</div>
 						</div>
 						<br/>
 						<div class=”form-group” >
 							<label for=”Secret”>MOT DE PASSE</label>
 							<div class="col-sm-12">
-								<input type="password" class="form-control" id="Password" placeholder="Password" required>
-							</div>
-						</div>
-						<br/>
-						<div class=”form-group” row>
-							<label for=”SecretConfirm”>CONFIRMER VOTRE MOT DE PASSE</label>
-							<div class="col-sm-12">
-								<input type="password" class="form-control" id="PasswordConfirm" placeholder="Password" required>
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
 							</div>
 						</div>
 						<br/>
