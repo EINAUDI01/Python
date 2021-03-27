@@ -1,0 +1,30 @@
+{% block title %}Liste des Utilisateurs{% endblock %}
+
+{% block body %}
+	
+	<!-- Affichage de la liste -->
+	
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Identifiant</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Prenom</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<!-- Une boucle qui va permettre de lire toute la base de donnée -->
+			
+			{% for item in ListeUser %}
+			<tr class=table-active">
+				<td>{{ item.id}}</td>
+				<td>{{ item.email}}</td>
+				<td>{{ item.nom}}</td>
+				<td>{{ item.prenom}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

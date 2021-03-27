@@ -11,6 +11,8 @@ use App\Entity\Utilisateur;
 
 class ProjetController extends AbstractController
 {
+	//Route page Index
+	
     /**
      * @Route("/projet", name="projet")
      */
@@ -21,6 +23,7 @@ class ProjetController extends AbstractController
         ]);
     }
 	
+	//Route Formulaire de Connexion
 	/**
      * @Route("inscription", name="inscription")
      */
@@ -29,14 +32,7 @@ class ProjetController extends AbstractController
         return $this->render('projet/inscription.html.twig');
     }
 	
-	/**
-     * @Route("CreationUtilisateur", name="CreationUtilisateur")
-     */
-    public function creer_utilisateur() : Response
-    {
-        return $this->render('projet/creer-utilisateur.html.twig');
-    }
-	
+	//Route Pour la Connexion
 	
 	/**
      * @Route("login", name="login")
@@ -67,5 +63,72 @@ class ProjetController extends AbstractController
 			$erreur="MOT DE PASSE OU LOGIN INCORRECT !!! ";
 			return $this->render('login/Erreur.html.twig', [  'erreur' => "$erreur" ]);
 		}
+	}
+	
+	//Route formulaire pour ajouter un nouveau utilisateur
+	
+	/**
+     * @Route("FormulaireNouveauUtilisateur", name="FormulaireNouveauUtilisateur")
+     */
+    public function FormulaireNouveauUtilisateur() : Response
+    {
+        return $this->render('projet/Creer-utilisateur.html.twig');
+    }
+	
+	//Route enregistrement des informations du nouvel Utilisateur
+	
+	/**
+     * @Route("CreationUtilisateur", name="CreationUtilisateur")
+     */
+	public function creer_utilisateur(EntityManagerInterface $manager, Request $request) : Response
+    {
+		//Recuperation des valeurs du formulaire
+		$recupIdentifiant = $request -> request -> get("Email"); 
+		$recupNom = $request -> request -> get("Nom"); 
+		$recupPrenom = $request -> request -> get("Prenom"); 
+		$recupMDP = $request -> request -> get("Password");
+		
+		//Cryptage du MotDePasse
+		$cost = 12;
+		$hash = password_hash($recupMDP, PASSWORD_BCRYPT, ["cost" => $cost]);
+		
+		if (password_verify($recupMDP, $hash)
+		{
+		//Création d'un nouvel utilisateur
+		$User = new User();
+		
+		//Insertion de la valeur dans l'objet
+		$User -> setEmail($recupIdentifiant);
+		$User -> setNom($recupNom);
+		$User -> setPrenom($recupPrenom);
+		$User -> setMotDePasse($recupMDP);
+		
+		//Validation de la BD
+		$manager -> persist($User);
+		$manager -> flush();
+		
+        return $this->redirecToRoute('ListeUtilisateur');
+		}
+		
+		else
+		{
+			$Information = "Recommencez une nouvelle fois !";
+			
+			return $this->render('login/ErreurAjoutUser.html.twig', [ 'Information' => "$Information"]);
+		}
+			
+    }
+	
+	// Route Liste des Utilisateurs
+	
+	/**
+     * @Route("ListeUtilisateur", name="ListeUtilisateur")
+     */
+    public function login (Request $request, EntityManagerInterface $manager) : Response
+    {
+		//Récupérer tous les Utilisateurs
+		$ListeUser = $manager -> getRepository(Utilisateur::class)->findAll;
+		
+		return $this -> render('login/ListeUtilisateur.html.twig', ['ListeUser' => $ListeUser]);
 	}
 }
