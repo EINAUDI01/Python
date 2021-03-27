@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Utilisateur;
 
 class ProjetController extends AbstractController
 {
@@ -35,20 +37,35 @@ class ProjetController extends AbstractController
         return $this->render('projet/creer-utilisateur.html.twig');
     }
 	
+	
 	/**
-     * @Route("/login", name="Create_login")
-    */
-    public function Createlogin (Request $request,EntityManagerInterface $manager) : Response
+     * @Route("login", name="login")
+     */
+    public function login (Request $request, EntityManagerInterface $manager) : Response
     {
-		$login=$request->request->get("nom");
+		$nom=$request->request->get("nom");
 		$password=$request->request->get("password");
 		
-		if ($login=="admin")
-			$message="BIENVENUE CHER ADMINISTRATEUR";
-		else
-			$message="BIENVENUE CHER UTILISATEUR";
+		$reponse = $manager -> getRepository(Utilisateur::class) -> findBy(["Nom" => $nom, "MotDePasse" => $password]);
 		
-		
-        return $this->render('login/Creerlogin.html.twig', [ 'nom' => $login, 'message' => $message, ] );
-    }
+		if (sizeof($reponse)>0)
+		{
+			if ($nom=="admin")
+			{
+				$message="Bienvenue cher Administrateur";
+				$erreur="MOT DE PASSE VALIDE";
+			}
+			else
+			{
+				$message="Bienvenue cher Utilisateur";
+				$erreur="MOT DE PASSE VALIDE";
+				
+			} 
+			return $this->render('login/index.html.twig', [ 'nom' => "$nom", 'message'  => "$message", 'erreur'  => "$erreur" ]);
+		}
+		else{
+			$erreur="MOT DE PASSE OU LOGIN INCORRECT !!! ";
+			return $this->render('login/Erreur.html.twig', [  'erreur' => "$erreur" ]);
+		}
+	}
 }
