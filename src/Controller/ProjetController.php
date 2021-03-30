@@ -80,7 +80,7 @@ class ProjetController extends AbstractController
 	/**
      * @Route("CreationUtilisateur", name="CreationUtilisateur")
      */
-	public function creer_utilisateur(EntityManagerInterface $manager, Request $request) : Response
+	public function creer_utilisateur(EntityManagerInterface $manager, Request $request)
     {
 		//Recuperation des valeurs du formulaire
 		$recupIdentifiant = $request -> request -> get("Email"); 
@@ -89,33 +89,33 @@ class ProjetController extends AbstractController
 		$recupMDP = $request -> request -> get("Password");
 		
 		//Cryptage du MotDePasse
-		$cost = 12;
-		$hash = password_hash($recupMDP, PASSWORD_BCRYPT, ["cost" => $cost]);
+		//$cost = 12;
+		//$hash = password_hash($recupMDP, PASSWORD_BCRYPT, ["cost" => $cost]);
 		
-		if (password_verify($recupMDP, $hash)
-		{
+		//if (password_verify($recupMDP, $hash)
+		//{
 		//Création d'un nouvel utilisateur
-		$User = new User();
+		$user = new Utilisateur ();
 		
 		//Insertion de la valeur dans l'objet
-		$User -> setEmail($recupIdentifiant);
-		$User -> setNom($recupNom);
-		$User -> setPrenom($recupPrenom);
-		$User -> setMotDePasse($recupMDP);
+		$user -> setNom($recupNom);
+		$user -> setPrenom($recupPrenom);
+		$user -> setMotDePasse($recupMDP);
+		$user->setEmail($recupIdentifiant);
 		
 		//Validation de la BD
-		$manager -> persist($User);
+		$manager -> persist($user);
 		$manager -> flush();
 		
-        return $this->redirecToRoute('ListeUtilisateur');
-		}
+        return $this->redirectToRoute('ListeUtilisateur');
+		//}
 		
-		else
-		{
-			$Information = "Recommencez une nouvelle fois !";
+		//else
+		//{
+			//$Information = "Recommencez une nouvelle fois !";
 			
-			return $this->render('login/ErreurAjoutUser.html.twig', [ 'Information' => "$Information"]);
-		}
+			//return $this->render('login/ErreurAjoutUser.html.twig', [ 'Information' => "$Information"]);
+		//}
 			
     }
 	
@@ -124,10 +124,10 @@ class ProjetController extends AbstractController
 	/**
      * @Route("ListeUtilisateur", name="ListeUtilisateur")
      */
-    public function login (Request $request, EntityManagerInterface $manager) : Response
+    public function ListeUtilisateur (Request $request, EntityManagerInterface $manager)
     {
 		//Récupérer tous les Utilisateurs
-		$ListeUser = $manager -> getRepository(Utilisateur::class)->findAll;
+		$ListeUser = $manager -> getRepository(Utilisateur::class)->findAll();
 		
 		return $this -> render('login/ListeUtilisateur.html.twig', ['ListeUser' => $ListeUser]);
 	}
