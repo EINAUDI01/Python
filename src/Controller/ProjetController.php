@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Utilisateur;
@@ -25,14 +26,14 @@ class ProjetController extends AbstractController
 	
 	//Route Formulaire de Connexion
 	/**
-     * @Route("inscription", name="inscription")
+     * @Route("connexion", name="connexion")
      */
-    public function inscription() : Response
+    public function connexion() : Response
     {
-        return $this->render('projet/inscription.html.twig');
+        return $this->render('projet/connexion.html.twig');
     }
 	
-	//Route Pour la Connexion
+	//Route Pour Vérification de la Connexion
 	
 	/**
      * @Route("login", name="login")
@@ -46,24 +47,29 @@ class ProjetController extends AbstractController
 		
 		if (sizeof($reponse)>0)
 		{
-			if ($nom=="admin")
-			{
-				$message="Bienvenue cher Administrateur";
+				$message="Bienvenue cher ";
 				$erreur="MOT DE PASSE VALIDE";
-			}
-			else
-			{
-				$message="Bienvenue cher Utilisateur";
-				$erreur="MOT DE PASSE VALIDE";
-				
-			} 
-			return $this->render('login/index.html.twig', [ 'nom' => "$nom", 'message'  => "$message", 'erreur'  => "$erreur" ]);
+			
+			return $this->redirectToRoute('OuvertureDeSession', [ 'message' => "$message",  'login' => "$login", 'erreur' => "$erreur" ]);
 		}
 		else{
 			$erreur="MOT DE PASSE OU LOGIN INCORRECT !!! ";
-			return $this->render('login/Erreur.html.twig', [  'erreur' => "$erreur" ]);
+			//Ne Pas oublier la modification d'ici
+			return $this->redirectToRoute('OuvertureDeSession', 'erreur' => "$erreur" ]);
 		}
 	}
+	
+	//Route Gestion de Session
+	
+	/**
+     * @Route("OuvertureDeSession", name="OuvertureDeSession")
+     */
+    public function OuvertureDeSession(Request $request, EntityManagerInterface $manager, SessionInterface $session) : Response
+    {
+		
+        return $this->render('projet/PageAccueil.html.twig');
+    }
+	
 	
 	//Route formulaire pour ajouter un nouveau utilisateur
 	
