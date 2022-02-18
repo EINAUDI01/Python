@@ -6,7 +6,7 @@ def sommePuissanceDeDeux(min, j):
     res = min - j
     listeSommePuissance.append(res)
     while res != 0:
-        res = min - j
+        res = res - j
         listeSommePuissance.append(res)
     return listeSommePuissance
 
@@ -31,6 +31,7 @@ else:
         min = a
         j = i 
         i = i ** 2
+
     
 liste = sommePuissanceDeDeux(min, j)
 print(liste)  

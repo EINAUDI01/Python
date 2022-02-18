@@ -19,4 +19,6 @@ while n != 1:
     n = conjecture(n)
     liste.append(n)
 
+nbr=len(liste)
+print(nbr)
 print(liste)
