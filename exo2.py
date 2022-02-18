@@ -13,6 +13,8 @@ liste.append(a)
 #si l'entier est pair
 n = conjecture(a)
 liste.append(n)
+#Je m'arrete à 1 car la suite va se répéter en 3 cycles 
+#apres avoir atteint le chiffre 1
 while n != 1:
     n = conjecture(n)
     liste.append(n)
