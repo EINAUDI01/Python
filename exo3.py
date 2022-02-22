@@ -1,19 +1,14 @@
 def PuissanceDeDeux(min):
-    i = 1
-    j = 1
-    puiss = 2
-    liste=[]
+    i = 0
     #Pour determiner la plus grande puissance de 2
-    while (puiss != 1):
-        while i <= min:
-            j = i 
-            i = i * 2
-        puiss = j
-        liste.append(j)
-        min = min - puiss   
-    return liste
+    while i <= min:
+        j = i 
+        i = i * 2 
+    return j
 
-listePuissance=[]
+liste=[]
+puiss=0
+
 print("Entrez le premier nombre : ")
 a=int(input())
 print(a)
@@ -26,8 +21,14 @@ if a < b:
 else:
     min = b 
     
-listePuissance = PuissanceDeDeux(min)
+puiss = PuissanceDeDeux(min)
+liste.append(puiss)
 
-print(listePuissance)
+while(puiss != 1):
+    min = min - puiss
+    PuissanceDeDeux(min)
+    liste.append(puiss)
+    
+print(liste)
 
  
