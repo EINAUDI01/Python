@@ -5,6 +5,13 @@ def conjecture(a):
         res = (a * 3) + 1
     return res
 
+#lecture du fichier resultat.txt
+with open("resultat.txt", 'r') as filin:
+    lignes = filin.readlines()
+    for ligne in lignes:
+        print(ligne)
+        
+#Ici on récupère l'entrée de l'utilisateur
 print("Entrez un nombre : ")
 a = int(input())
 #On ajoute a dans la liste
@@ -19,6 +26,7 @@ while n != 1:
     n = conjecture(n)
     liste.append(n)
 
-nbr=len(liste)
-print(nbr)
-print(liste)
+#Ici on écrit le résultat dans un fichier
+with open("resultat.txt", "w") as filout:
+    filout.write(f"{liste}\n")
+

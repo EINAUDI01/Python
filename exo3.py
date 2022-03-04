@@ -1,34 +1,55 @@
-def PuissanceDeDeux(min):
-    i = 0
-    #Pour determiner la plus grande puissance de 2
-    while i <= min:
-        j = i 
-        i = i * 2 
-    return j
 
-liste=[]
-puiss=0
+import itertools
 
-print("Entrez le premier nombre : ")
+print("Entrez le premier nombre:")
 a=int(input())
-print(a)
-print("Entrez le second nombre : ")
+print("Entrez le second nombre:")
 b=int(input())
-print(b)
 
-if a < b: 
+#On détermine le plus petit des 2 nombres
+if a < b:
     min = a
+    max = b
 else:
     min = b 
+    max = a
     
-puiss = PuissanceDeDeux(min)
-liste.append(puiss)
+#On va essayer de determiner la plus grand puissance du min
+#Jusqu'à ce que cette puissance soit égale à 1 
 
-while(puiss != 1):
-    min = min - puiss
-    PuissanceDeDeux(min)
-    liste.append(puiss)
+#Je declare mes différentes variables
+puissanceDeDeux = 1
+listePuissanceDeDeux = []
+listeValeur = []
+val = max
+valIntermediaire = max
+
+#Boucles pour calculer les puissances de deux et les valeurs correspondantes
+#Jusqu'à la dernière puissance de 2 inférieur à min
+while puissanceDeDeux <= min: 
+    listePuissanceDeDeux.append(puissanceDeDeux)
+    listeValeur.append(val)
+    puissanceDeDeux = puissanceDeDeux + puissanceDeDeux 
+    val =  valIntermediaire + valIntermediaire
+    valIntermediaire = val
     
-print(liste)
+
+#On va tranformer les deux listes qui contiennent les puissances et les valeurs 
+#En dictionnaire
+dict = dict(zip(listePuissanceDeDeux, listeValeur))
+
+resultat = 0
+for k, i in reversed(dict.items()):
+    if k <= min:
+        resultat = i + resultat
+        min = min - k
+print(resultat)
+       
+
+
+#Boucle pour afficher les éléments du dictionnaire
+#for k, v in dict.items(): 
+    #print (k, v)
+               
 
  
