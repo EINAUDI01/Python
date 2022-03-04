@@ -1,6 +1,3 @@
-
-import itertools
-
 print("Entrez le premier nombre:")
 a=int(input())
 print("Entrez le second nombre:")
@@ -43,13 +40,6 @@ for k, i in reversed(dict.items()):
     if k <= min:
         resultat = i + resultat
         min = min - k
-print(resultat)
-       
-
-
-#Boucle pour afficher les éléments du dictionnaire
-#for k, v in dict.items(): 
-    #print (k, v)
-               
+print(resultat)               
 
  
